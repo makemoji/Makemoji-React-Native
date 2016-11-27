@@ -1,0 +1,9 @@
+# Uncomment this line to define a global platform for your project
+platform :ios, '8.0'
+
+target 'MakeMojiReactNative’ do
+pod "AFNetworking", "2.6.3"
+pod 'SDWebImage', "3.7.3"
+pod "Makemoji-SDK"
+pod "MakemojiSDK-KeyboardExtension"
+end

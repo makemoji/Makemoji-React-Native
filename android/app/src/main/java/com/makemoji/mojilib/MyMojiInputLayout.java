@@ -27,6 +27,24 @@ public class MyMojiInputLayout extends MojiInputLayout{
         super.setRnUpdateListener(listener);
     }
 
+    @Override
+    public void requestLayout() {
+        super.requestLayout();
 
+        // The toolbar relies on a measure + layout pass happening after it calls requestLayout().
+        // Without this, certain calls (e.g. setLogo) only take effect after a second invalidation.
+        post(mLayoutRunnable);
+    }
+    private final Runnable mLayoutRunnable = new Runnable() {
+        @Override
+        public void run() {
+            int ch;
+            if (categoriesPage.mView!=null)ch = categoriesPage.mView.getHeight();
+            measure(
+                    MeasureSpec.makeMeasureSpec(getWidth(), MeasureSpec.EXACTLY),
+                    MeasureSpec.makeMeasureSpec(getHeight(), MeasureSpec.EXACTLY));
+            layout(getLeft(), getTop(), getRight(), getBottom());
+        }
+    };
 
 }

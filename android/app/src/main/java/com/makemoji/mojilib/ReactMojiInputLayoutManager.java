@@ -296,12 +296,12 @@ public class ReactMojiInputLayoutManager extends ViewGroupManager<MyMojiInputLay
                 reactContext.runOnNativeModulesQueueThread(r);
             }
         });
-
         return mojiInputLayout;
     }
     public LayoutShadowNode createShadowNodeInstance() {
         return new MyShadowNode();
     }
+
     @Override
     protected void addEventEmitters(ThemedReactContext reactContext, MyMojiInputLayout view) {
         eventDispatcher = reactContext.getNativeModule(UIManagerModule.class).getEventDispatcher();

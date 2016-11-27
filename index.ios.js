@@ -46,7 +46,7 @@ class MakemojiReactNative extends Component {
     );
   }
   componentWillMount(){
-    NativeModules.MakemojiManager.init("yourKey");//ios only
+    //NativeModules.MakemojiManager.init("yourKey");//ios only
   }
   componentWillUnmount(){
     this.subscription.remove();

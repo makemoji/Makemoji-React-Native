@@ -47,7 +47,7 @@ RCT_CUSTOM_VIEW_PROPERTY(abc, UIColor, METextInputView){
   }
 }
 
-#pragma mark METextInputViewDelegate
+/*#pragma mark METextInputViewDelegate
 -(void)meTextInputView:(METextInputView *)inputView didTapCameraButton:(UIButton*)cameraButton {
   NSLog(@"camera");
   //((RCTMoji *) inputView).onCameraPressed(nil);
@@ -66,5 +66,5 @@ RCT_CUSTOM_VIEW_PROPERTY(abc, UIColor, METextInputView){
 -(void)meTextInputView:(METextInputView *)inputView didChangeFrame:(CGRect)frame{
   
 }
-
+ */
 @end

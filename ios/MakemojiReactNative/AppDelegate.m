@@ -11,6 +11,8 @@
 
 #import "RCTBundleURLProvider.h"
 #import "RCTRootView.h"
+#import "MakemojiSDK.h"
+
 
 @implementation AppDelegate
 
@@ -19,7 +21,7 @@
   NSURL *jsCodeLocation;
 
   jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index.ios" fallbackResource:nil];
-
+  [MakemojiSDK setSDKKey:@"940ced93abf2ca4175a4a865b38f1009d8848a58"];
   RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
                                                       moduleName:@"MakemojiReactNative"
                                                initialProperties:nil

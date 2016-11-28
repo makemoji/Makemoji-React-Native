@@ -53,7 +53,7 @@ class MakemojiReactNative extends Component {
       );
   }
   componentWillMount(){
-    NativeModules.MakemojiManager.init("bb0b5cf8d6a9e73fb2800202d204a15ef5a578d3");//ios only
+    NativeModules.MakemojiManager.init("yourKey");//ios only
   }
   componentWillUnmount(){
       this.subscription.remove();
@@ -75,15 +75,13 @@ class MakemojiReactNative extends Component {
                     enableEmptySections={true}
                     renderRow={(rowData) => <MakemojiTextCelliOS style={styles.stretch} html={rowData}/>}
           />
-          <MakemojiTextInput detatchedInputId={this.state.detatchedInputId} tag={'mojiInput'} ref={'mojiInput'} style={styles.moji}
-                             onSendPress={this.sendPressed.bind(this)} sendButtonVisible={true} cameraVisible={true} onCameraPress={this.log}
+          <MakemojiTextInput style={styles.moji} onSendPress={this.sendPressed.bind(this)}
+                             sendButtonVisible={true} cameraVisible={true} onCameraPress={this.log}
           />
         </View>
     );
   }
-  genHtml(){
-    //this.refs.topEditText.requestHtml(true,true);//args:should clear input;should send text to analytics
-  }
+
   sendPressed(sendObject){
     console.log('send pressed', sendObject);
     var htmlMessages = [...this.state.htmlMessages,sendObject.html];

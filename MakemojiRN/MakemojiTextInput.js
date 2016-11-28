@@ -95,9 +95,9 @@ MakemojiTextInput.propTypes = {
     cameraDrawable:React.PropTypes.string,//name of asset in drawables folder
     backspaceDrawable:React.PropTypes.string,//name of asset in drawables folder
     buttonContainerDrawable:React.PropTypes.string,//the background drawable name behind the left buttons
-    topBarDrawable:React.PropTypes.string,
-    bottomPageDrawable:React.PropTypes.string,
-    phraseBgColor:React.PropTypes.string,//color of phrase category backing, hex
+    topBarDrawable:React.PropTypes.string, //Background resource of top [camera,text,sendButton] view
+    bottomPageDrawable:React.PropTypes.string, //background res of emoji bar and category pages
+    phraseBgColor:React.PropTypes.string,//color of phrase category backing, in hex
     headerTextColor:React.PropTypes.string,//color of page header text, hex
     alwaysShowEmojiBar:React.PropTypes.bool,//always shows bar even when kb isn't up
     minSendLength:React.PropTypes.number,//number of characters needed to enable send button

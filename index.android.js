@@ -60,13 +60,14 @@ class MakemojiReactNative extends Component {
         this.wallSubscription.remove();
     }
     componentWillMount(){
-        NativeModules.MakemojiManager.init("940ced93abf2ca4175a4a865b38f1009d8848a58");
+        NativeModules.MakemojiManager.init("yourKey");
     }
   render() {
     return (
       <View keyboardShouldPersistTaps={false} style={styles.container}>
           {showDetatchControls? <View>
-          <MakemojiEditTextAndroid keyboardShouldPersistTaps={false} style={[styles.editText,{fontSize:this.state.textSize}]} finderTag={'topEditText'} ref={'topEditText'} onHtmlGenerated={this.sendPressed.bind(this)}/>
+          <MakemojiEditTextAndroid keyboardShouldPersistTaps={false} style={[styles.editText,{fontSize:this.state.textSize}]}
+                                   finderTag={'topEditText'} ref={'topEditText'} onHtmlGenerated={this.sendPressed.bind(this)}/>
 
           <TouchableHighlight onPress={this.genHtml.bind(this)}>
              <Text style={styles.welcome} selectable={true}>
@@ -93,10 +94,10 @@ class MakemojiReactNative extends Component {
           <ListView style={{flex:1,alignSelf:'stretch'}}
                     dataSource={this.state.dataSource}
                     enableEmptySections={true}
-                    renderRow={(rowData) => <MakemojiTextAndroid onHyperMojiPress={this.log} style={styles.instructions} html={rowData}/>}
+                    renderRow={(rowData) => <MakemojiTextAndroid style={styles.instructions} html={rowData}/>}
           />
         <MakemojiTextInput outsideEditText={this.state.outsideEditText} ref={'mojiInput'} style={styles.moji} minSendLength={0} alwaysShowEmojiBar={false}
-                           onSendPress={this.sendPressed.bind(this)} onHyperMojiPress={this.log} onCameraPress={this.log}/>
+                           onSendPress={this.sendPressed.bind(this)} onCameraPress={this.log}/>
       </View>
     );
   }

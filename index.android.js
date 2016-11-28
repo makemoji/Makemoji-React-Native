@@ -23,7 +23,8 @@ var MakemojiTextInput = require('./MakemojiRN/MakemojiTextInput');// MakemojiTex
 import MakemojiEditTextAndroid from './MakemojiRN/MakemojiEditTextAndroid'
 import MakemojiTextAndroid from './MakemojiRN/MakemojiTextAndroid'
 
-const showDetatchControls = false; // enable to show example of detached input.
+const NativeEventEmitter = require('NativeEventEmitter');
+const showDetatchControls = true; // enable to show example of detached input.
 class MakemojiReactNative extends Component {
 
     constructor(props){
@@ -44,18 +45,22 @@ class MakemojiReactNative extends Component {
 
     }
     componentDidMount(){
-        //this.setState({outsideEditText:'topEditText'});
-
-        this.subscription = NativeAppEventEmitter.addListener(
+        var emitter = new NativeEventEmitter(NativeModules.MakemojiManager);
+        this.subscription = emitter.addListener(
             'onHypermojiPress',
             (event) => console.log(event.url)
+        );
+        this.wallSubscription = emitter.addListener(
+            'onEmojiWallSelect',
+            (event) => console.log(event)
         );
     }
     componentWillUnmount(){
         this.subscription.remove();
+        this.wallSubscription.remove();
     }
     componentWillMount(){
-        NativeModules.MakemojiManager.init("940ced93abf2ca4175a4a865b38f1009d8848a58");//ios only
+        NativeModules.MakemojiManager.init("940ced93abf2ca4175a4a865b38f1009d8848a58");
     }
   render() {
     return (
@@ -79,6 +84,11 @@ class MakemojiReactNative extends Component {
                   Detatch Edit Text
               </Text>
           </TouchableHighlight>
+              <TouchableHighlight onPress={() => NativeModules.MakemojiManager.openWall()}>
+                  <Text style={[{marginTop:0},styles.instructions]}>
+                      Wall
+                  </Text>
+              </TouchableHighlight>
               </View> :null}
           <ListView style={{flex:1,alignSelf:'stretch'}}
                     dataSource={this.state.dataSource}

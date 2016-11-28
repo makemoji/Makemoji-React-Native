@@ -13,8 +13,9 @@
 
 // CalendarManager.h
 #import "RCTBridgeModule.h"
+#import "RCTEventEmitter.h"
 
-@interface MakemojiManager : NSObject <RCTBridgeModule>
+@interface MakemojiManager : RCTEventEmitter <RCTBridgeModule>
 @end
 
 

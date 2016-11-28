@@ -22,10 +22,12 @@ findNodeHandle
 
 } from 'react-native';
 var MakemojiTextInput = require('./MakemojiRN/MakemojiTextInput');
+
+const NativeEventEmitter = require('NativeEventEmitter');
 import MakemojiTextCelliOS from './MakemojiRN/MakemojiTextCelliOS'
 
 var ReactNative = require('ReactNative');
-const showDetatchControls = false; // not avaible on ios currently
+const showDetatchControls = true; // not avaible on ios currently
 class MakemojiReactNative extends Component {
 
   constructor(props){
@@ -40,37 +42,31 @@ class MakemojiReactNative extends Component {
 
   }
   componentDidMount(){
-    this.subscription = NativeAppEventEmitter.addListener(
+    var emitter = new NativeEventEmitter(NativeModules.MakemojiManager);
+    this.subscription = emitter.addListener(
         'onHypermojiPress',
         (event) => console.log(event.url)
     );
+      this.wallSubscription = emitter.addListener(
+          'onEmojiWallSelect',
+          (event) => console.log(event)
+      );
   }
   componentWillMount(){
-    //NativeModules.MakemojiManager.init("yourKey");//ios only
+    NativeModules.MakemojiManager.init("bb0b5cf8d6a9e73fb2800202d204a15ef5a578d3");//ios only
   }
   componentWillUnmount(){
-    this.subscription.remove();
+      this.subscription.remove();
+      this.wallSubscription.remove();
   }
   render() {
     return (
         <View keyboardShouldPersistTaps={false} style={styles.container}>
 
           {showDetatchControls? <View>
-            <TextInput style={styles.editText} ref='textInput'/>
-            <TouchableHighlight onPress={this.genHtml.bind(this)}>
-              <Text style={styles.welcome} selectable={true}>
-                Grab Text from top edit text.
-              </Text>
-            </TouchableHighlight>
-
-            <TouchableHighlight onPress={() =>this.setState(() => this.refs.mojiInput.detatch(ReactNative.findNodeHandle(this.refs.textInput)))}>
-              <Text style={styles.instructions}>
-                Attatch Edit Text
-              </Text>
-            </TouchableHighlight>
-            <TouchableHighlight onPress={() => this.setState({detatchedInputId:null})}>
-              <Text style={styles.instructions}>
-                Detatch Edit Text
+            <TouchableHighlight onPress={() => NativeModules.MakemojiManager.openWall()}>
+              <Text style={[{marginTop:20},styles.instructions]}>
+                Wall
               </Text>
             </TouchableHighlight>
           </View> :null}
@@ -86,7 +82,7 @@ class MakemojiReactNative extends Component {
     );
   }
   genHtml(){
-    this.refs.topEditText.requestHtml(true,true);//args:should clear input;should send text to analytics
+    //this.refs.topEditText.requestHtml(true,true);//args:should clear input;should send text to analytics
   }
   sendPressed(sendObject){
     console.log('send pressed', sendObject);

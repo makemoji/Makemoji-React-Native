@@ -10,11 +10,15 @@
 #import "RCTBridgeModule.h"
 #import "MakemojiManager.h"
 #import "MakemojiSDK.h"
+#import "MEEmojiWall.h"
 #import "RCTEventDispatcher.h"
 #import "RCTBridge.h"
 
 #import "RCTUIManager.h"
 #import "RCTMETextInputView.h"
+#import "RCTEventEmitter.h"
+
+#import "AppDelegate.h"
 
 
 @implementation MakemojiManager
@@ -32,6 +36,30 @@ RCT_EXPORT_METHOD(init:(NSString *)key)
                                                name:@"MEHypermojiLinkClicked"
                                              object:nil];
 }
+RCT_EXPORT_METHOD(openWall){
+  MEEmojiWall * emojiWall = [[MEEmojiWall alloc] init];
+  emojiWall.delegate = self;
+  emojiWall.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+  
+  UINavigationController *navigationController =
+  [[UINavigationController alloc] initWithRootViewController:emojiWall];
+  
+  AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+  // present the emoji wall as a modal
+  [delegate.window.rootViewController presentViewController:navigationController animated:YES completion:nil];
+}
+-(void)meEmojiWall:(MEEmojiWall *)emojiWall didSelectEmoji:(NSDictionary*)emoji {
+  [emojiWall dismissViewControllerAnimated:YES completion:nil];
+  NSMutableDictionary *myDictionary = [emoji mutableCopy];
+  [myDictionary removeObjectForKey:@"image_object"];
+  [self sendEventWithName: @"onEmojiWallSelect"
+                                               body:myDictionary];
+  NSLog(@"%@", emoji);
+}
+- (NSArray<NSString *> *)supportedEvents {
+  return @[@"onEmojiWallSelect",@"onHypermojiPress"];
+}
+
 RCT_EXPORT_METHOD(setChannel:(NSString *)channel)
 {
   [MakemojiSDK setChannel:channel];
@@ -41,7 +69,7 @@ RCT_EXPORT_METHOD(setChannel:(NSString *)channel)
   NSDictionary *theData = [note userInfo];
   if (theData != nil) {
     NSString *n = [theData objectForKey:@"url"];
-    [self.bridge.eventDispatcher sendAppEventWithName:@"onHypermojiPress"
+    [self sendEventWithName:@"onHypermojiPress"
                                                  body:@{@"url": n}];
   }
 }

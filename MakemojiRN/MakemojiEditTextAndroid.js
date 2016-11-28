@@ -728,6 +728,7 @@ const TextInput = React.createClass({
                 text={this._getText()}
                 children={children}
                 disableFullscreenUI={this.props.disableFullscreenUI}
+                onHtmlGenerated={(e) => this.props.onHtmlGenerated(e.nativeEvent)}
             />;
 
         return (

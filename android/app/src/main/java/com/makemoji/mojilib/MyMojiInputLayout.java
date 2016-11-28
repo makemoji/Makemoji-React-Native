@@ -38,8 +38,6 @@ public class MyMojiInputLayout extends MojiInputLayout{
     private final Runnable mLayoutRunnable = new Runnable() {
         @Override
         public void run() {
-            int ch;
-            if (categoriesPage.mView!=null)ch = categoriesPage.mView.getHeight();
             measure(
                     MeasureSpec.makeMeasureSpec(getWidth(), MeasureSpec.EXACTLY),
                     MeasureSpec.makeMeasureSpec(getHeight(), MeasureSpec.EXACTLY));

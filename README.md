@@ -44,6 +44,12 @@ Add one to a datasource to render in a list.
               var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
               this.setState({htmlMessages:htmlMessages,dataSource:ds.cloneWithRows(htmlMessages)});
             }
+            /* sample send object
+            {
+            html:"<p dir="auto" style="margin-bottom:16px;font-family:'.Helvetica Neue Interface';font-size:16px;"><span style="color:#000000;"><img style="vertical-align:text-bottom;width:20px;height:20px;" id="734"src="https://d1tvcfe0bfyi6u.cloudfront.net/emoji/734-large@2x.png" name="Street Fighter" link=""><img style="vertical-align:text-bottom;width:20px;height:20px;" id="9927"src="https://d1tvcfe0bfyi6u.cloudfront.net/emoji/9927-large@2x.png" name="Chill" link=""> watching</p>"
+            plaintext:"[Street Fighter.Bq][Chill.2a7] watching"
+            }
+             */
 ```
 
 ### Displaying Messages

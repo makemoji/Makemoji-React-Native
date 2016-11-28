@@ -89,7 +89,7 @@ To show the user a full screen modal or activity to choose one emoji, call
         var emitter = new NativeEventEmitter(NativeModules.MakemojiManager);
         this.wallSubscription = emitter.addListener(
             'onEmojiWallSelect',
-            (event) => console.log(event.url)
+            (event) => console.log(event)
         );
     }
     componentWillUnmount(){

@@ -20,6 +20,7 @@ import {
 
 } from 'react-native';
 var MakemojiTextInput = require('./MakemojiRN/MakemojiTextInput');// MakemojiTextInput from './MakemojiRN/MakemojiTextInput'
+var MakemojiReactions = require('./MakemojiRN/MakemojiReactions');
 import MakemojiEditTextAndroid from './MakemojiRN/MakemojiEditTextAndroid'
 import MakemojiTextAndroid from './MakemojiRN/MakemojiTextAndroid'
 
@@ -60,7 +61,7 @@ class MakemojiReactNative extends Component {
         this.wallSubscription.remove();
     }
     componentWillMount(){
-        NativeModules.MakemojiManager.init("yourKey");
+        NativeModules.MakemojiManager.init("940ced93abf2ca4175a4a865b38f1009d8848a58");
     }
   render() {
     return (
@@ -94,7 +95,10 @@ class MakemojiReactNative extends Component {
           <ListView style={{flex:1,alignSelf:'stretch'}}
                     dataSource={this.state.dataSource}
                     enableEmptySections={true}
-                    renderRow={(rowData) => <MakemojiTextAndroid style={styles.instructions} html={rowData}/>}
+                    renderRow={(rowData) => <View style={{flexDirection:'column'}}>
+                        <MakemojiTextAndroid style={styles.instructions} html={rowData}/>
+                        <MakemojiReactions style={styles.editText} contentId={rowData}/>
+                    </View>}
           />
         <MakemojiTextInput outsideEditText={this.state.outsideEditText} ref={'mojiInput'} style={styles.moji} minSendLength={0} alwaysShowEmojiBar={false}
                            onSendPress={this.sendPressed.bind(this)} onCameraPress={this.log}/>
@@ -119,7 +123,7 @@ class MakemojiReactNative extends Component {
 
 const styles = StyleSheet.create({
     editText:{
-
+        height:50,
         alignSelf: 'stretch',
     },
   container: {

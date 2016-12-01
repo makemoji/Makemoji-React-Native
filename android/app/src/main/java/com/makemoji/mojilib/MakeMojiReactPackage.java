@@ -41,7 +41,8 @@ public class MakeMojiReactPackage implements ReactPackage {
 
 
         return Arrays.<ViewManager>asList(
-                new ReactMojiInputLayoutManager(), new ReactMojiTextViewManager(), new ReactMojiEditTextManager()
+                new ReactMojiInputLayoutManager(), new ReactMojiTextViewManager(), new ReactMojiEditTextManager(),
+                new ReactMojiReactionsViewManager()
         );
     }
 

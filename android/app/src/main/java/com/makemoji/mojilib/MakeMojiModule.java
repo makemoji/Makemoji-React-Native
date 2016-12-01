@@ -12,6 +12,7 @@ import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
 import com.makemoji.mojilib.model.MojiModel;
+import com.makemoji.mojilib.model.ReactionsData;
 import com.makemoji.mojilib.wall.MojiWallActivity;
 
 import org.json.JSONObject;
@@ -53,6 +54,7 @@ public class MakeMojiModule extends ReactContextBaseJavaModule implements Activi
 
     @Override
     public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent data) {
+        ReactionsData.onActivityResult(requestCode,resultCode,data);
         if (requestCode == IMojiSelected.REQUEST_MOJI_MODEL && resultCode== Activity.RESULT_OK){
             try{
                 String json = data.getStringExtra(Moji.EXTRA_JSON);

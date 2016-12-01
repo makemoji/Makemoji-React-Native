@@ -22,6 +22,7 @@ findNodeHandle
 
 } from 'react-native';
 var MakemojiTextInput = require('./MakemojiRN/MakemojiTextInput');
+var MakemojiReactions = require('./MakemojiRN/MakemojiReactions');
 
 const NativeEventEmitter = require('NativeEventEmitter');
 import MakemojiTextCelliOS from './MakemojiRN/MakemojiTextCelliOS'
@@ -38,6 +39,7 @@ class MakemojiReactNative extends Component {
     this.state = {htmlMessages:[],
       dataSource:ds.cloneWithRows([]),
       detatchedInputId:null,
+      showReactions:false,
       textSize:17.0};
 
   }
@@ -53,7 +55,7 @@ class MakemojiReactNative extends Component {
       );
   }
   componentWillMount(){
-    NativeModules.MakemojiManager.init("yourKey");//ios only
+    NativeModules.MakemojiManager.init("940ced93abf2ca4175a4a865b38f1009d8848a58");//ios only
   }
   componentWillUnmount(){
       this.subscription.remove();
@@ -63,17 +65,25 @@ class MakemojiReactNative extends Component {
     return (
         <View keyboardShouldPersistTaps={false} style={styles.container}>
 
-          {showDetatchControls? <View>
+          {showDetatchControls? <View style={{flexDirection:'row'}}>
             <TouchableHighlight onPress={() => NativeModules.MakemojiManager.openWall()}>
               <Text style={[{marginTop:20},styles.instructions]}>
-                Wall
+                  Wall
               </Text>
-            </TouchableHighlight>
+          </TouchableHighlight>
+              <TouchableHighlight onPress={() => this.setState({showReactions:!this.state.showReactions})}>
+                  <Text style={[{marginTop:20,marginLeft:30},styles.instructions]}>
+                      {this.state.showReactions?'-Reactions':'+Reactions'}
+                  </Text>
+              </TouchableHighlight>
           </View> :null}
           <ListView style={{flex:1,alignSelf:'stretch',marginTop:50}}
                     dataSource={this.state.dataSource}
                     enableEmptySections={true}
-                    renderRow={(rowData) => <MakemojiTextCelliOS style={styles.stretch} html={rowData}/>}
+                    renderRow={(rowData) => <View style={{flexDirection:'column'}}>
+                        <MakemojiTextCelliOS style={styles.stretch} html={rowData}/>
+                       {this.state.showReactions? <MakemojiReactions style={styles.reaction} contentId={rowData}/> :null}
+                    </View>}
           />
           <MakemojiTextInput style={styles.moji} onSendPress={this.sendPressed.bind(this)}
                              sendButtonVisible={true} cameraVisible={true} onCameraPress={this.log}
@@ -96,6 +106,10 @@ class MakemojiReactNative extends Component {
 }
 
 const styles = StyleSheet.create({
+    reaction:{
+        height:30,
+        alignSelf: 'stretch',
+    },
   editText:{
     height:50,
     alignSelf: 'stretch',

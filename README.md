@@ -2,7 +2,7 @@
 
 ![](http://makemoji.com/docs/img/Intro.png)
 
-A React Native wrapper for the MakeMoji SDK. iOS and Android
+
 The Makemoji in-app keyboard is the core of our SDK. It is a dynamically controlled emoji keyboard with an tightly integrated text input that is backed by our CMS and Dashboard. You can create your own categories, upload emoji/gifs and track their usage along side unicode emoji.
 
 ## Installation
@@ -156,4 +156,4 @@ Detatched input on ios coming soon™.
 ## Customization
 MakemojiTextAndroid and MakemojiEditTextAndroid are copy paste extensions of the Text and TextInput components and respond to standard styling
 and custmization. Descriptions of the styling available for MakemojiTextInput can be found next to the proptypes of
-[MakemojiTextInput.js](MakemojiRN/MakemojiTextInput.js). Any other styling is available on request.
+[MakemojiTextInput.js](https://github.com/makemoji/Makemoji-React-Native/blob/master/MakemojiRN/MakemojiTextInput.js). Any other styling is available on request.

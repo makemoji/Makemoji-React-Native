@@ -1,7 +1,8 @@
 # Makemoji-React-Native
 
-A React Native wrapper for the MakeMoji SDK. iOS and Android
 ![](http://makemoji.com/docs/img/Intro.png)
+
+A React Native wrapper for the MakeMoji SDK. iOS and Android
 The Makemoji in-app keyboard is the core of our SDK. It is a dynamically controlled emoji keyboard with an tightly integrated text input that is backed by our CMS and Dashboard. You can create your own categories, upload emoji/gifs and track their usage along side unicode emoji.
 
 ## Installation
@@ -116,6 +117,8 @@ On android, add the wall activity to your manifest first.
 ```
  
  ### Reactions
+ 
+
  Makemoji reactions allow you to add inline emoji reactions to any view. This is a great component for getting quick user feedback on any type of content. It uses our emoji wall to let the user react with any emoji you have in your library.
  ![](http://i.imgur.com/MCQttIW.png)
 

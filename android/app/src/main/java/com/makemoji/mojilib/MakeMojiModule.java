@@ -54,7 +54,9 @@ public class MakeMojiModule extends ReactContextBaseJavaModule implements Activi
 
     @Override
     public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent data) {
-        ReactionsData.onActivityResult(requestCode,resultCode,data);
+        if (ReactionsData.onActivityResult(requestCode,resultCode,data)){
+            return;
+        }
         if (requestCode == IMojiSelected.REQUEST_MOJI_MODEL && resultCode== Activity.RESULT_OK){
             try{
                 String json = data.getStringExtra(Moji.EXTRA_JSON);

@@ -29,20 +29,28 @@ import csslayout.MyReactTextShadowNode;
 /**
  * Created by s_baa on 8/6/2016.
  */
-public class ReactMojiReactionsViewManager extends SimpleViewManager<ReactionsLayout> {
+public class ReactMojiReactionsViewManager extends SimpleViewManager<MyReactionsLayout> {
     @Override
     public String getName() {
         return "RCTMojiReactions";
     }
 
     @Override
-    public ReactionsLayout createViewInstance(final ThemedReactContext reactContext) {
-      final ReactionsLayout reactionsLayout =new MyReactionsLayout(reactContext.getCurrentActivity());
+    public MyReactionsLayout createViewInstance(final ThemedReactContext reactContext) {
+      final MyReactionsLayout reactionsLayout =new MyReactionsLayout(reactContext.getCurrentActivity());
         return reactionsLayout;
     }
     @ReactProp(name = "contentId")
-    public void setContentId(ReactionsLayout view, @Nullable String id) {
-       if (id!=null) view.setReactionsData(new ReactionsData(id));
+    public void setContentId(final MyReactionsLayout view, @Nullable String id) {
+        if (id == null) return;
+        ReactionsData data =new ReactionsData(id);
+        data.rnUpdateListener = new MojiInputLayout.RNUpdateListener() {
+            @Override
+            public void needsUpdate() {
+                view.requestLayout();
+            }
+        };
+       view.setReactionsData(data);
     }
 
 }

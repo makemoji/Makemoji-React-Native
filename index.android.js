@@ -35,6 +35,7 @@ class MakemojiReactNative extends Component {
     this.state = {htmlMessages:[],
     dataSource:ds.cloneWithRows([]),
     outsideEditText:' ',
+    showReactions:false,
     textSize:17.0};
         BackAndroid.addEventListener('hardwareBackPress', () => {
             if (this.refs.mojiInput.canGoBack()){
@@ -85,19 +86,27 @@ class MakemojiReactNative extends Component {
               <Text style={styles.instructions}>
                   Detatch Edit Text
               </Text>
+
           </TouchableHighlight>
-              <TouchableHighlight onPress={() => NativeModules.MakemojiManager.openWall()}>
-                  <Text style={[{marginTop:0},styles.instructions]}>
-                      Wall
-                  </Text>
-              </TouchableHighlight>
+              <View style={{flexDirection:'row',justifyContent:'center'}}>
+                  <TouchableHighlight onPress={() => NativeModules.MakemojiManager.openWall()}>
+                      <Text style={[{marginTop:5},styles.instructions]}>
+                          Wall
+                      </Text>
+                  </TouchableHighlight>
+                  <TouchableHighlight onPress={() => this.setState({showReactions:!this.state.showReactions})}>
+                      <Text style={[{marginTop:5,marginLeft:30},styles.instructions]}>
+                          {this.state.showReactions?'-Reactions':'+Reactions'}
+                      </Text>
+                  </TouchableHighlight>
+              </View>
               </View> :null}
           <ListView style={{flex:1,alignSelf:'stretch'}}
                     dataSource={this.state.dataSource}
                     enableEmptySections={true}
                     renderRow={(rowData) => <View style={{flexDirection:'column'}}>
                         <MakemojiTextAndroid style={styles.instructions} html={rowData}/>
-                        <MakemojiReactions style={styles.editText} contentId={rowData}/>
+                       {this.state.showReactions? <MakemojiReactions style={styles.reaction} contentId={rowData}/> :null}
                     </View>}
           />
         <MakemojiTextInput outsideEditText={this.state.outsideEditText} ref={'mojiInput'} style={styles.moji} minSendLength={0} alwaysShowEmojiBar={false}
@@ -122,6 +131,10 @@ class MakemojiReactNative extends Component {
 }
 
 const styles = StyleSheet.create({
+    reaction:{
+        height:30,
+        alignSelf: 'stretch',
+    },
     editText:{
         height:50,
         alignSelf: 'stretch',
@@ -136,7 +149,6 @@ const styles = StyleSheet.create({
   welcome: {
     fontSize: 20,
     textAlign: 'center',
-    margin: 10,
   },
   instructions: {
     textAlign: 'center',

@@ -1,6 +1,8 @@
 # Makemoji-React-Native
 
 A React Native wrapper for the MakeMoji SDK. iOS and Android
+![](http://makemoji.com/docs/img/Intro.png)
+The Makemoji in-app keyboard is the core of our SDK. It is a dynamically controlled emoji keyboard with an tightly integrated text input that is backed by our CMS and Dashboard. You can create your own categories, upload emoji/gifs and track their usage along side unicode emoji.
 
 ## Installation
 Copy the folder [MakeMojiRN](MakeMojiRN) for the js files.
@@ -78,6 +80,7 @@ Hypermoji are flashing emojis associated with a url.
  ```
 
 ### Emoji Wall
+![](http://makemoji.com/docs/img/emojiwall.png)
 To show the user a full screen modal or activity to choose one emoji, call
 ```javascript
  NativeModules.MakemojiManager.openWall() 
@@ -112,6 +115,18 @@ On android, add the wall activity to your manifest first.
     </activity>
 ```
  
+ ### Reactions
+ Makemoji reactions allow you to add inline emoji reactions to any view. This is a great component for getting quick user feedback on any type of content. It uses our emoji wall to let the user react with any emoji you have in your library.
+ ![](http://i.imgur.com/MCQttIW.png)
+
+ Set up the wall as described above to allow users to add an arbitrary reaction from the '+' button.
+ The contentId is the unique id from you server identifying the content that is being reacted to.
+ The height in the style should be 30, give or take 5.
+ ```javascript
+<MakemojiReactions style={styles.reaction} contentId={messageId}/>
+```
+ 
+ 
 ### Detatched Input
 If you want to use an input target other than MakemojiTextInput on android, things are a bit trickier. A MakemojiEditTextAndroid is required
 to ensure keyboard, backspace, and copy paste compatibility. Assign the view a static unique identifier in the finderTag prop.
@@ -125,7 +140,7 @@ Then, after mount, assign MakemojiTextInput the prop outsideEditText with the sa
  Set outsideEditText={null} to reverse
 this. 
 ```javascript
-this.setState({outsideEditText:'topEditText'})
+this.setState({outsideEditText:'topEditText'});
 ...
 <MakemojiTextInput outsideEditText={this.state.outsideEditText} .../>
 

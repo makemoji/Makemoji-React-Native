@@ -10,7 +10,7 @@ export  default class MakemojiReactions extends React.Component {
 
     }
     render() {
-        return <NativeComponent {...this.props}/>;
+        return <NativeComponent ref={this.props.contentId} {...this.props}/>;
     }
 
 

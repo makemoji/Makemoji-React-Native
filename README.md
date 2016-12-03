@@ -116,9 +116,8 @@ On android, add the wall activity to your manifest first.
     </activity>
 ```
  
- ### Reactions
+### Reactions
  
-
  Makemoji reactions allow you to add inline emoji reactions to any view. This is a great component for getting quick user feedback on any type of content. It uses our emoji wall to let the user react with any emoji you have in your library.
  ![](http://i.imgur.com/MCQttIW.png)
 

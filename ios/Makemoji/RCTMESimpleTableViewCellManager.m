@@ -1,6 +1,6 @@
 // RCTMapManager.m
 
-#import "RCTViewManager.h"
+#import <React/RCTViewManager.h>
 #import "MESimpleTableViewCell.h"
 #import <UIKit/UIKit.h>
 #import "RCTMETextInputView.h"

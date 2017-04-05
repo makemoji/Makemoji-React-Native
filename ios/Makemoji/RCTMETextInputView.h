@@ -13,13 +13,15 @@
 #endif /* RCTMETextInputView_h */
 #import <Foundation/Foundation.h>
 
-#import "RCTComponent.h"
+
+#import <React/RCTComponent.h>
 #import "METextInputView.h"
 
 @interface RCTMETextInputView : METextInputView
 
 @property (nonatomic, copy) RCTBubblingEventBlock onSendPress;
 @property (nonatomic, copy) RCTBubblingEventBlock onHypermojiPress;
+//@property (nonatomic, copy) RCTBubblingEventBlock onHyperlinkPress;
 @property (nonatomic, copy) RCTBubblingEventBlock onCameraPress;
 
 @end

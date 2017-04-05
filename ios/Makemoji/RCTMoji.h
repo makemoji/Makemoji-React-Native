@@ -7,7 +7,7 @@
 //
 
 #import "METextInputView.h"
-#import "RCTComponent.h"
+#import <React/RCTComponent.h>
 
 @interface RCTMoji :METextInputView
 @property (nonatomic, copy) RCTBubblingEventBlock onCameraPressed;

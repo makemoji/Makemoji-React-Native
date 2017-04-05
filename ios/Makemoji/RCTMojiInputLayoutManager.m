@@ -8,11 +8,11 @@
 
 #import <Foundation/Foundation.h>
 #import "MakemojiSDK.h"
-#import "RCTViewManager.h"
+#import <React/RCTViewManager.h>
 #import <UIKit/UIKit.h>
 #import "RCTMETextInputView.h"
-#import "RCTBridge.h"
-#import "RCTUIManager.h"
+#import <React/RCTBridge.h>
+#import <React/RCTUIManager.h>
 
 @interface RCTMojiInputLayoutManager : RCTViewManager <METextInputViewDelegate>
 @end
@@ -23,6 +23,7 @@ RCT_EXPORT_MODULE()
 
 RCT_EXPORT_VIEW_PROPERTY(onSendPress, RCTBubblingEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onHypermojiPress, RCTBubblingEventBlock)
+//RCT_EXPORT_VIEW_PROPERTY(onHyperlinkPress, RCTBubblingEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onCameraPress, RCTBubblingEventBlock)
 
 @synthesize bridge = _bridge;
@@ -46,10 +47,14 @@ RCT_EXPORT_VIEW_PROPERTY(onCameraPress, RCTBubblingEventBlock)
   inputView.onCameraPress(NULL);
 }
 
-// handle tapping on linked text
 -(void)meTextInputView:(RCTMETextInputView *)inputView didTapHypermoji:(NSString*)urlString {
-  //inputView.onHypermojiPress(@{@"url":urlString});
+  inputView.onHypermojiPress(@{@"url":urlString});
 }
+
+// handle tapping of URLs
+/*-(void)meTextInputView:(RCTMETextInputView *)inputView didTapHyperlink:(NSString*)urlString {
+  inputView.onHyperlinkPress(@{@"url":urlString});
+}*/
 
 RCT_CUSTOM_VIEW_PROPERTY(cameraVisible, BOOL, RCTMETextInputView)
 {

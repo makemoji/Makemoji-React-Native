@@ -42,6 +42,9 @@ class MakemojiReactNative extends Component {
       showReactions:false,
       textSize:17.0};
 
+
+      NativeModules.MakemojiManager.init("key");
+
   }
   componentDidMount(){
     var emitter = new NativeEventEmitter(NativeModules.MakemojiManager);
@@ -55,7 +58,6 @@ class MakemojiReactNative extends Component {
       );
   }
   componentWillMount(){
-    NativeModules.MakemojiManager.init("yourKey");
   }
   componentWillUnmount(){
       this.subscription.remove();
@@ -86,6 +88,7 @@ class MakemojiReactNative extends Component {
                     </View>}
           />
           <MakemojiTextInput style={styles.moji} onSendPress={this.sendPressed.bind(this)}
+                             onHypermojiPress={this.log} onHyperlinkPress={this.log}
                              sendButtonVisible={true} cameraVisible={true} onCameraPress={this.log}
           />
         </View>

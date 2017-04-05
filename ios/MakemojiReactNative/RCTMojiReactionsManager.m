@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-#import "RCTViewManager.h"
+#import <React/RCTViewManager.h>
 #import "MESimpleTableViewCell.h"
 #import "MEReactionView.h"
 #import <UIKit/UIKit.h>

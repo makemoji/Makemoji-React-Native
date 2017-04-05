@@ -7,16 +7,16 @@
 
 #import <Foundation/Foundation.h>
 
-#import "RCTBridgeModule.h"
+#import <React/RCTBridgeModule.h>
 #import "MakemojiManager.h"
 #import "MakemojiSDK.h"
 #import "MEEmojiWall.h"
-#import "RCTEventDispatcher.h"
-#import "RCTBridge.h"
+#import <React/RCTEventDispatcher.h>
+#import <React/RCTBridge.h>
 
-#import "RCTUIManager.h"
+#import <React/RCTUIManager.h>
 #import "RCTMETextInputView.h"
-#import "RCTEventEmitter.h"
+#import <React/RCTEventEmitter.h>
 
 #import "AppDelegate.h"
 
@@ -31,10 +31,10 @@ RCT_EXPORT_METHOD(init:(NSString *)key)
 {
   
   [MakemojiSDK setSDKKey:key];
-  [[NSNotificationCenter defaultCenter] addObserver:self
+  /*[[NSNotificationCenter defaultCenter] addObserver:self
                                            selector:@selector(hypermojiClick:)
                                                name:@"MEHypermojiLinkClicked"
-                                             object:nil];
+                                             object:nil];*/
 }
 RCT_EXPORT_METHOD(openWall){
   MEEmojiWall * emojiWall = [[MEEmojiWall alloc] init];

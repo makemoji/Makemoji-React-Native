@@ -52,7 +52,9 @@ export  default class MakemojiTextInput extends React.Component {
 
     render() {
         return <NativeComponent {...this.props} onHypermojiPress={this.onHypermojiPress} ref={this.props.tag}
-                                   onSendPress={this.onSendPress} onCameraPress={this.onCameraPress} onCanGoBackChanged={this.onCanGoBackChanged} />;
+                                    onHyperlinkPress={this.onHyperlinkPress}
+                                   onSendPress={this.onSendPress} onCameraPress={this.onCameraPress}
+                                onCanGoBackChanged={this.onCanGoBackChanged} />;
     }
 
     detatch(tag){

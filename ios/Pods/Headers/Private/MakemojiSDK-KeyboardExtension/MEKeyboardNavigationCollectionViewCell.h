@@ -1,1 +1,0 @@
-../../../MakemojiSDK-KeyboardExtension/Pod/Library/MEKeyboardNavigationCollectionViewCell.h

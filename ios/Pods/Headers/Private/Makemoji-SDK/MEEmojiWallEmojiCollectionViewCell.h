@@ -1,1 +1,0 @@
-../../../Makemoji-SDK/Pod/Library/MEEmojiWallEmojiCollectionViewCell.h

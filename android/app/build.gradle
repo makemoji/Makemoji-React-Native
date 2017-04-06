@@ -83,8 +83,8 @@ def enableSeparateBuildPerCPUArchitecture = false
 def enableProguardInReleaseBuilds = false
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.1"
+    compileSdkVersion 25
+    buildToolsVersion '25.0.0'
 
     defaultConfig {
         applicationId "com.makemojireactnative"
@@ -127,8 +127,8 @@ android {
 
 dependencies {
     compile fileTree(dir: "libs", include: ["*.jar"])
-    compile "com.android.support:appcompat-v7:23.0.1"
-    compile 'com.makemoji:makemoji-sdk-android:0.9.778'
+    compile "com.android.support:appcompat-v7:25.3.1"
+    compile 'com.makemoji:makemoji-sdk-android:0.9.800'
     compile "com.facebook.react:react-native:+"  // From node_modules
 }
 

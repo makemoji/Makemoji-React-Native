@@ -14,7 +14,6 @@ import android.view.ViewTreeObserver;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.facebook.csslayout.CSSNode;
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.WritableMap;
@@ -33,12 +32,6 @@ import com.facebook.react.uimanager.annotations.ReactProp;
 import com.facebook.react.uimanager.events.Event;
 import com.facebook.react.uimanager.events.EventDispatcher;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
-import com.facebook.react.views.text.ReactTextView;
-import com.facebook.react.views.textinput.ReactEditText;
-import com.makemoji.mojilib.HyperMojiListener;
-import com.makemoji.mojilib.Moji;
-import com.makemoji.mojilib.MojiInputLayout;
-import com.makemoji.mojilib.MyMojiInputLayout;
 
 import java.lang.reflect.Method;
 import java.util.Map;
@@ -56,7 +49,7 @@ public class ReactMojiInputLayoutManager extends ViewGroupManager<MyMojiInputLay
         super();
         if (markNewLayout == null) {
             try {
-                markNewLayout = CSSNode.class.getDeclaredMethod("markHasNewLayout");
+                markNewLayout = LayoutShadowNode.class.getSuperclass().getDeclaredMethod("markUpdateSeen");
                 markNewLayout.setAccessible(true);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -210,15 +203,15 @@ public class ReactMojiInputLayoutManager extends ViewGroupManager<MyMojiInputLay
             @Override
             public boolean onClick(final String html, Spanned spanned) {
                 eventDispatcher.dispatchEvent(new SendEvent(mojiInputLayout.getId(),html));
+                mojiInputLayout.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mojiInputLayout.requestRnUpdate();//update view size when collapsing lines
+                    }
+                },20);
                 return true;
             }
         });
-       /* mojiInputLayout.setHyperMojiClickListener(new HyperMojiListener() {
-            @Override
-            public void onClick(String url) {
-                eventDispatcher.dispatchEvent(new HyperMojiEvent (mojiInputLayout.getId(),url));
-            }
-            });*/
         mojiInputLayout.setCameraButtonClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -262,34 +255,16 @@ public class ReactMojiInputLayoutManager extends ViewGroupManager<MyMojiInputLay
                             }
                         }
                             if (node != null) {
-                                //
-                                // Log.d(getName(),""+mojiInputLayout.horizontalLayout.getHeight());
-                                node.setWidth(PixelUtil.toDIPFromPixel(mojiInputLayout.getWidth()));
                                 int height = (mojiInputLayout.horizontalLayout.getVisibility()==View.VISIBLE? mojiInputLayout.horizontalLayout.getHeight():0)
                                         +(mojiInputLayout.topScroller.getVisibility()==View.VISIBLE?
                                         (int)PixelUtil.toPixelFromDIP(45):0) +
-                                     //    mojiInputLayout.topScroller.getMeasuredHeight() : 0) + //height is randomly 0 because react native
                                         (mojiInputLayout.pages.size()>0 ?
                                                 (int)  PixelUtil.toPixelFromDIP(250):0);
-                                                //mojiInputLayout.getPageFrame().getHeight():0);
-                                node.setHeight(PixelUtil.toDIPFromPixel(height));
-                               // Log.d(getName(),mojiInputLayout.getWidth()+ " " + mojiInputLayout.getHeight() + " " + mojiInputLayout.getPageFrame().getHeight());
-                                if (node.hasNewLayout()) node.markLayoutSeen();
-                                ReactShadowNode parent = node.getParent();
-                                while (parent != null) {
-                                    if (parent.hasNewLayout()) {
-                                        try {
-                                            markNewLayout.invoke(parent,mojiInputLayout.getId());
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
-                                        }
-                                        parent.markLayoutSeen();
-                                    }
-                                    parent = parent.getParent();
-                                }
-                                eventDispatcher.dispatchEvent(new CanGoBackEvent(mojiInputLayout.getId(),mojiInputLayout.canHandleBack()));
-                                node.markUpdated();
+
+                                mojiInputLayout.requestLayout();
+                                uiImplementation.updateNodeSize(mojiInputLayout.getId(),mojiInputLayout.getWidth(),height);
                             }
+                        eventDispatcher.dispatchEvent(new CanGoBackEvent(mojiInputLayout.getId(),mojiInputLayout.canHandleBack()));
                     }
 
                 };

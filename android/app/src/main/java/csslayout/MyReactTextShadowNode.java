@@ -9,7 +9,7 @@ import com.facebook.react.views.text.ReactTextShadowNode;
 public class MyReactTextShadowNode extends ReactTextShadowNode {
 
     public MyReactTextShadowNode(boolean isVirtual) {
-        super(isVirtual);
+        super();
     }
     public float getFontSize(){
         return mFontSize;

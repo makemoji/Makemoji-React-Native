@@ -37,9 +37,10 @@ class MakemojiReactNative extends Component {
     outsideEditText:' ',
     showReactions:false,
     textSize:17.0};
+    let that = this;
         BackAndroid.addEventListener('hardwareBackPress', () => {
-            if (this.refs.mojiInput.canGoBack()){
-                this.refs.mojiInput.onBackPressed();
+            if (that.refs.mojiInput && that.refs.mojiInput.canGoBack()){
+                that.refs.mojiInput.onBackPressed();
                 return true;//back handled
             }
             return false;
@@ -62,7 +63,7 @@ class MakemojiReactNative extends Component {
         this.wallSubscription.remove();
     }
     componentWillMount(){
-        NativeModules.MakemojiManager.init("yourKey");
+        NativeModules.MakemojiManager.init("940ced93abf2ca4175a4a865b38f1009d8848a58");
     }
   render() {
     return (
@@ -109,7 +110,7 @@ class MakemojiReactNative extends Component {
                        {this.state.showReactions? <MakemojiReactions style={styles.reaction} contentId={rowData}/> :null}
                     </View>}
           />
-        <MakemojiTextInput outsideEditText={this.state.outsideEditText} ref={'mojiInput'} style={styles.moji} minSendLength={0} alwaysShowEmojiBar={false}
+        <MakemojiTextInput outsideEditText={this.state.outsideEditText} ref={'mojiInput'} style={styles.moji} alwaysShowEmojiBar={false}
                            onSendPress={this.sendPressed.bind(this)} onCameraPress={this.log}/>
       </View>
     );

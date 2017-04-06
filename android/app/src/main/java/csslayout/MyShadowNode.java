@@ -10,13 +10,13 @@ public class MyShadowNode extends LayoutShadowNode {
     @Override
     public void markUpdated(){
         super.markUpdated();
-        if (hasNewLayout()) markLayoutSeen();
-        dirty();
+        //if (hasNewLayout()) markLayoutSeen();
+        //dirty();
     }
-    @Override
+ /*   @Override
     public boolean isDirty(){
         return true;
-    }
+    }*/
 
 
 }

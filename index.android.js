@@ -37,17 +37,17 @@ class MakemojiReactNative extends Component {
     outsideEditText:' ',
     showReactions:false,
     textSize:17.0};
-    let that = this;
-        BackAndroid.addEventListener('hardwareBackPress', () => {
-            if (that.refs.mojiInput && that.refs.mojiInput.canGoBack()){
-                that.refs.mojiInput.onBackPressed();
-                return true;//back handled
-            }
-            return false;
-        });
+
 
     }
-    componentDidMount(){
+    componentWillUnmount(){
+        this.subscription.remove();
+        this.wallSubscription.remove();
+        BackAndroid.removeEventListener(this.backListener);
+    }
+    componentWillMount(){
+        NativeModules.MakemojiManager.init("yourkey");
+
         var emitter = new NativeEventEmitter(NativeModules.MakemojiManager);
         this.subscription = emitter.addListener(
             'onHypermojiPress',
@@ -57,13 +57,14 @@ class MakemojiReactNative extends Component {
             'onEmojiWallSelect',
             (event) => console.log(event)
         );
-    }
-    componentWillUnmount(){
-        this.subscription.remove();
-        this.wallSubscription.remove();
-    }
-    componentWillMount(){
-        NativeModules.MakemojiManager.init("940ced93abf2ca4175a4a865b38f1009d8848a58");
+
+        this.backListener = BackAndroid.addEventListener('hardwareBackPress', () => {
+            if (this.refs.mojiInput && this.refs.mojiInput.canGoBack()){
+                this.refs.mojiInput.onBackPressed();
+                return true;//back handled
+            }
+            return false;
+        });
     }
   render() {
     return (

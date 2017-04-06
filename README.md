@@ -8,7 +8,9 @@ The Makemoji in-app keyboard is the core of our SDK. It is a dynamically control
 ## Installation
 Copy the folder [MakeMojiRN](MakeMojiRN) for the js files.
 Call NativeModules.MakemojiManager.init("YourSdkKey"); when your application will mount.
-###Android
+
+### Android
+
 Copy the folder [com/makemoji/mojilib](android/app/src/main/java/com/makemoji/mojilib) into your android/app/src/main/java folder.
 
 In your MainApplication.java add the MakeMojiReactPackage to the list of packages.
@@ -26,7 +28,8 @@ Add the latest version of the sdk to your app's build.gradle
 [ ![MakeMoji SDK Version](https://api.bintray.com/packages/mm/maven/com.makemoji%3Amakemoji-sdk-android/images/download.svg) ](https://bintray.com/mm/maven/com.makemoji%3Amakemoji-sdk-android/_latestVersion)
 ``` compile "com.makemoji:makemoji-sdk-android:x.x.xxx" ```
 
-###iOS
+### iOS
+
 Copy the folder [Makemoji](ios/Makemoji) to your xcode project. Right click on your project
 and select 'Add Files' and select all the files in the folder.
 Add 'pod "Makemoji-SDK"' to your podfile, and run 'pod install'.
@@ -41,6 +44,29 @@ Add one to a datasource to render in a list.
           <MakemojiTextInput style={styles.moji} onSendPress={this.sendPressed.bind(this)} 
                              sendButtonVisible={true} cameraVisible={true} onCameraPress={this.log}
           />
+          componentWillMount(){
+              this.subscription = emitter.addListener(
+                  'onHypermojiPress',
+                  (event) => console.log(event.url)
+              );
+              this.wallSubscription = emitter.addListener(
+                  'onEmojiWallSelect',
+                  (event) => console.log(event)
+              );
+              this.backListener = BackAndroid.addEventListener('hardwareBackPress', () => {
+                  if (this.refs.mojiInput && this.refs.mojiInput.canGoBack()){
+                      this.refs.mojiInput.onBackPressed();
+                      return true;//back handled
+                  }
+                  return false;
+              });
+          }
+          componentWillUnmount(){
+              this.subscription.remove();
+              this.wallSubscription.remove();
+              BackAndroid.removeEventListener(this.backListener);
+          }
+
             sendPressed(sendObject){
               console.log('send pressed', sendObject);
               var htmlMessages = [...this.state.htmlMessages,sendObject.html];

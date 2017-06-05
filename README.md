@@ -6,12 +6,12 @@
 The Makemoji in-app keyboard is the core of our SDK. It is a dynamically controlled emoji keyboard with an tightly integrated text input that is backed by our CMS and Dashboard. You can create your own categories, upload emoji/gifs and track their usage along side unicode emoji.
 
 ## Installation
-Copy the folder [MakeMojiRN](MakeMojiRN) for the js files.
+Copy the folder [MakeMojiRN](https://github.com/makemoji/Makemoji-React-Native/tree/master/MakemojiRN) for the js files.
 Call NativeModules.MakemojiManager.init("YourSdkKey"); when your application will mount.
 
 ### Android
 
-Copy the folder [com/makemoji/mojilib](android/app/src/main/java/com/makemoji/mojilib) into your android/app/src/main/java folder.
+Copy the folder [com/makemoji/mojilib](https://github.com/makemoji/Makemoji-React-Native/tree/master/android/app/src/main/java/com/makemoji/mojilib) into your android/app/src/main/java folder.
 
 In your MainApplication.java add the MakeMojiReactPackage to the list of packages.
 ```java
@@ -30,7 +30,7 @@ Add the latest version of the sdk to your app's build.gradle
 
 ### iOS
 
-Copy the folder [Makemoji](ios/Makemoji) to your xcode project. Right click on your project
+Copy the folder [Makemoji](https://github.com/makemoji/Makemoji-React-Native/tree/master/ios/Makemoji) to your xcode project. Right click on your project
 and select 'Add Files' and select all the files in the folder.
 Add 'pod "Makemoji-SDK"' to your podfile, and run 'pod install'.
 
